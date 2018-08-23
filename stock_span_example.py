@@ -5,6 +5,7 @@ camel = 0
 current_pos = 0
 for i in range(len(stocks)):
     if i == 0:
+        camel = 1
         results = [1]
     else:
         if stocks[i] >= stocks[i -1] and stocks[i] < stocks[max_value_pos_before_checkpoint]:
