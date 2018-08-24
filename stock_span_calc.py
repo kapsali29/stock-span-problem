@@ -1,16 +1,19 @@
-stocks = [100, 80, 60, 70, 60, 75, 85]
+import pandas
 
 
 class StockSpan(object):
     """The class StockSpan contains methods that load a list or csv with stocks and computes the stock-span problem"""
 
-    def __init__(self, stocks):
-        self.stocks = stocks
+    def __init__(self, filepath):
+        self.filepath = filepath
+        self.stocks = pandas.read_csv(self.filepath)
 
-    # def load_csv(self, data):
-    #
+    def read_stock_values(self):
+        values = list(self.stocks["VALUE"])
+        print(values)
+        return values
 
-    def calculateSpan(self):
+    def calculateSpan(self, values):
         """
         The method compute the daily stock span.
         :return: results
@@ -18,7 +21,7 @@ class StockSpan(object):
         max_value_pos_before_checkpoint = 0
         results = []
         camel = 0
-        stocks = self.stocks
+        stocks = values
         for i in range(len(stocks)):
             if i == 0:
                 camel = 1
@@ -34,3 +37,4 @@ class StockSpan(object):
                 elif stocks[i] >= stocks[i - 1] and stocks[i] >= stocks[max_value_pos_before_checkpoint]:
                     results.append(i - max_value_pos_before_checkpoint + camel)
         return results
+
